@@ -13,9 +13,9 @@ exports.config = {
 
     maxInstances: 2,
    
-    capabilities: [{
+    capabilities: [
+	{
         maxInstances: 2,
-
         browserName: 'chrome',
         acceptInsecureCerts: true,
         'goog:chromeOptions': {
@@ -25,7 +25,13 @@ exports.config = {
             ],
         }
 
-    }],
+    },
+	{
+		maxInstances: 2,
+        browserName: 'firefox',
+        acceptInsecureCerts: true,
+	}
+	],
 
     logLevel: 'info',
     bail: 0,
@@ -40,9 +46,9 @@ exports.config = {
         ['chromedriver'],
         ['image-comparison', 
           {
-            baselineFolder: join(process.cwd(), './pics/expectedPics/'),
+            baselineFolder: join(process.cwd(), './test/image-comparison-pics/expectedPics/'),
             formatImageName: '{tag}-{logName}-{width}x{height}',
-            screenshotPath: join(process.cwd(), './pics/actualPics/'),
+            screenshotPath: join(process.cwd(), './test/image-comparison-pics/actualPics/'),
             savePerInstance: true,
             autoSaveBaseline: true,
             blockOutStatusBar: true,

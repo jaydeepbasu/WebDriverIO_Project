@@ -9,7 +9,7 @@ describe('Example', () => {
     it('should save some screenshots', async () => {
         // browser.url('https://Codemify.com/interview/interview');
         // Save a screen
-        await browser.saveScreen('examplePaged', { /* some options */ });
+        // await browser.saveScreen('examplePaged', { /* some options */ });
         // Save an element
         // browser.saveElement($('.rightSideBarUL'), 'firstButtonElement', { /* some options */ });
         // Save a full page screenshot
