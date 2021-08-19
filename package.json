@@ -1,0 +1,26 @@
+{
+  "name": "Volvo_Test",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "npx wdio run wdio.conf.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@wdio/allure-reporter": "^7.10.0",
+    "@wdio/cli": "^7.10.0",
+    "@wdio/sync": "^7.10.0",
+    "allure-commandline": "^2.13.8"
+  },
+  "devDependencies": {
+    "@wdio/local-runner": "^7.10.0",
+    "@wdio/mocha-framework": "^7.10.0",
+    "@wdio/spec-reporter": "^7.10.0",
+    "chromedriver": "^92.0.1",
+    "wdio-chromedriver-service": "^7.2.0",
+    "wdio-docker-service": "^3.1.3"
+  }
+}
