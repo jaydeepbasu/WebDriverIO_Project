@@ -3,4 +3,4 @@ allure-results/
 allure-report/
 logs/
 test/image-comparison-pics/actualPics/
-test/image-comparison-pics/expectedPics
+test/image-comparison-pics/expectedPics/
