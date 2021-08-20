@@ -9,6 +9,7 @@ class MillionMorePage extends Page {
     get decades_Inno_sec () { return $("//img[@data-autoid='imageWithText:image']/../..") }
     get top_right_menu () { return $("//button[@data-autoid='nav:siteNavHamburgerIcon']") }
 
+    
     async clickAcceptButton(acceptCookiesButton) {
         this.acceptCookiesButton.click();
     }
