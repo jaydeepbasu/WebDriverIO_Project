@@ -5,6 +5,27 @@ const Page = require('./page');
  */
 class MillionMorePage extends Page {
 
+    get acceptCookiesButton () { return $("[title='Accept']") }
+    get decades_Inno_sec () { return $("//img[@data-autoid='imageWithText:image']/../..") }
+    get top_right_menu () { return $("//button[@data-autoid='nav:siteNavHamburgerIcon']") }
+
+    async clickAcceptButton(acceptCookiesButton) {
+        this.acceptCookiesButton.click();
+    }
+
+    async decades_Inno_sec_scrollView(acceptCookiesButton) {
+        this.decades_Inno_sec.scrollIntoView();
+    }
+
+    async clickTopRightMenu(acceptCookiesButton) {
+        this.top_right_menu.click();
+    }
+
+
+
+
+
+
     get volvoLogo () { return $("//nav[@role='navigation']//img[@alt='Volvo']") }
     get topBanner() { return $("//section[@data-autoid='ModelIntro']//h2")}
 

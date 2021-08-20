@@ -35,7 +35,7 @@ exports.config = {
 	],
 
     logLevel: 'info',
-    outputDir: './logs',
+    //outputDir: './logs',
     bail: 0,
     baseUrl: 'https://www.volvocars.com/',
 
@@ -45,7 +45,7 @@ exports.config = {
     connectionRetryCount: 3,
 
     services: [
-        ['chromedriver'],
+        ['docker'],
         ['image-comparison', 
           {
             baselineFolder: join(process.cwd(), './test/image-comparison-pics/expectedPics/'),
@@ -91,16 +91,16 @@ exports.config = {
         const path = require("path")
         const utils = require('./test/util/removeDirectory');
 
-        const allureResultDir = path.join(__dirname, "./allure-results")
+        const allureResultDir = path.join(__dirname, "/allure-results")
         utils.removeDir(allureResultDir)
 
-        const allureReportDir = path.join(__dirname, "./allure-report")
+        const allureReportDir = path.join(__dirname, "/allure-report")
         utils.removeDir(allureReportDir)
 
-        const icActualPics = path.join(__dirname, "./test/image-comparison-pics/actualPics")
+        const icActualPics = path.join(__dirname, "/test/image-comparison-pics/actualPics")
         utils.removeDir(icActualPics)
 
-        const logs = path.join(__dirname, "./logs")
+        const logs = path.join(__dirname, "/logs")
         utils.removeDir(logs)
      },
      
