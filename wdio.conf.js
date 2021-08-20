@@ -25,15 +25,17 @@ exports.config = {
             ],
         }
 
-    },
-	{
-		maxInstances: 2,
-        browserName: 'firefox',
-        acceptInsecureCerts: true,
-	}
+    }
+    // ,
+	// {
+	// 	maxInstances: 2,
+    //     browserName: 'firefox',
+    //     acceptInsecureCerts: true,
+	// }
 	],
 
     logLevel: 'info',
+    outputDir: './logs',
     bail: 0,
     baseUrl: 'https://www.volvocars.com/',
 
@@ -50,18 +52,18 @@ exports.config = {
             formatImageName: '{tag}-{logName}-{width}x{height}',
             screenshotPath: join(process.cwd(), './test/image-comparison-pics/actualPics/'),
             savePerInstance: true,
-            autoSaveBaseline: true,
+            autoSaveBaseline: false,
             blockOutStatusBar: true,
-            blockOutToolBar: true,
-            ignoreNothing: true  // Without this option, it errors out only when mismatch is above 1.23%(by default)
-          }], 
+            blockOutToolBar: true
+            // ignoreNothing: true  // Without this option, it errors out only when mismatch is above 1.23%(by default)
+          }]
     ],
 
     framework: 'mocha',
 
-    reporters: [['allure', {
+    reporters: ['spec',['allure', {
         outputDir: 'allure-results',
-        disableWebdriverStepsReporting: false,
+        disableWebdriverStepsReporting: true,
         disableWebdriverScreenshotsReporting: false,
     }]],
 
@@ -88,8 +90,18 @@ exports.config = {
      onPrepare: function (config, capabilities) {
         const path = require("path")
         const utils = require('./test/util/removeDirectory');
-        const pathToDir = path.join(__dirname, "./allure-results")
-        utils.removeDir(pathToDir)
+
+        const allureResultDir = path.join(__dirname, "./allure-results")
+        utils.removeDir(allureResultDir)
+
+        const allureReportDir = path.join(__dirname, "./allure-report")
+        utils.removeDir(allureReportDir)
+
+        const icActualPics = path.join(__dirname, "./test/image-comparison-pics/actualPics")
+        utils.removeDir(icActualPics)
+
+        const logs = path.join(__dirname, "./logs")
+        utils.removeDir(logs)
      },
      
     /**
@@ -154,8 +166,9 @@ exports.config = {
     /**
      * Function to be executed after a test (in Mocha/Jasmine).
      */
-    // afterTest: function(test, context, { error, result, duration, passed, retries }) {
-    // },
+    afterTest: async function(test, context, { error, result, duration, passed, retries }) {
+        await browser.takeScreenshot();
+    },
 
 
     /**
