@@ -2,21 +2,10 @@ const millionMorePage = require('../pageobjects/millionMore_page');
 
 describe('Image Comparison Scenarios', () => {
 
-    // it('Verify Accept Cookie Page UI', async () => {
-    //     await millionMorePage.open();
-    //     //pause has been added to bring stability in the image comparison as video is running on the page.
-    //     await browser.pause(3000);
-    //     //As video is running on the page hence while taking screenshot there will always be a 
-    //     //variation in pixels hence I am measuring the mismatch percentage to be less than 20
-    //     await expect(await browser.checkScreen('accept_cookie_page', { })).toBeLessThan(20);
-    // });
-
     it('Verify Full Page UI', async () => {
         await millionMorePage.open();
 
-        // const acceptCookiesButton = await $("[title='Accept']")
-        // await acceptCookiesButton.click()
-        await millionMorePage.clickAcceptButton();
+        await millionMorePage.acceptCookies();
 
         //pause has been added to bring stability in the image comparison as video is running on the page.
         await browser.pause(2000)

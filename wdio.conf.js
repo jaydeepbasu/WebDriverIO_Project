@@ -11,11 +11,11 @@ exports.config = {
         './test/specs/**/*.js'
     ],
 
-    maxInstances: 2,
+    maxInstances: 4,
    
     capabilities: [
 	{
-        maxInstances: 2,
+        maxInstances: 4,
         browserName: 'chrome',
         acceptInsecureCerts: true,
         'goog:chromeOptions': {
@@ -52,7 +52,7 @@ exports.config = {
             formatImageName: '{tag}-{logName}-{width}x{height}',
             screenshotPath: join(process.cwd(), './test/image-comparison-pics/actualPics/'),
             savePerInstance: true,
-            autoSaveBaseline: false,
+            autoSaveBaseline: true,
             blockOutStatusBar: true,
             blockOutToolBar: true
             // ignoreNothing: true  // Without this option, it errors out only when mismatch is above 1.23%(by default)
