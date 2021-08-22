@@ -14,7 +14,6 @@ class MillionMorePage extends Page {
     get volvoLogo () { return $("//nav[@role='navigation']//img[@alt='Volvo']") }
     get topBanner() { return $("//section[@data-autoid='ModelIntro']//h2")}
     get topBannerText() { return $("//section[@data-autoid='ModelIntro']//p")}
-    get campaignText() { return $("//div[@data-component='TextStatement']//p")}
     get burgerSign() { return $('[data-testid="burger"]')}
     get sideNavigationLogo() { return $('[id="nav:sideNavigation"] img[alt="Volvo"]')}
     get sideNavigationCollapse() { return $('[data-testid="close"]')}
@@ -30,13 +29,17 @@ class MillionMorePage extends Page {
     get videoTestiSection() {return $('[data-component="VideoTestimonials"]')}
     get oneofaMillion_videoTesti_1() {return $('[data-autoid="videoTestimonials:video-0"]')}
     get oneofaMillion_videoTesti_2() {return $('[data-autoid="videoTestimonials:video-1"]')}
-    get oneofaMillion_videoTesti_3() {return $('[data-autoid="videoTestimonials:video-2"]')}
-    get oneofaMillion_videoTesti_4() {return $('[data-autoid="videoTestimonials:video-3"]')}
     get decadesInnovationHeader() {return $('[data-autoid="imageWithText:title"]')}
     get decadesInnovationSubText() {return $('[data-autoid="imageWithText:description"]')}
     get decadesInnovationLearnMore() {return $('//a[@data-autoid="imageWithText:primaryCta"]/..')}
     get exploreOurModelHeader() {return $('[data-autoid="productListCarousel:title"]')}
     get exploreOurModelFirstCar() {return $('[data-autoid="springCarouselPane:carouselItem"]')}
+    get safetyCampaignSection() {return $('[data-autoid="IconCallouts-1"]')}
+    get campaignText() { return $("//div[@data-component='TextStatement']//p")}
+    get safetySpeedCap() {return $('(//div[@data-autoid="iconCallouts:iconTextItem"]//em)[1]')}
+    get safetyHighwayPilot() {return $('(//div[@data-autoid="iconCallouts:iconTextItem"]//em)[2]')}
+    get safetyLearnMoreAbout() {return $('[data-autoid="iconCallouts:cta"]')}
+
 
 
     async open () {
@@ -72,11 +75,6 @@ class MillionMorePage extends Page {
     async verifyTopBannerText () {    
         const expTopBannerText = readJson.getJsonData('expTopBannerText')
         assert.equal(await this.topBannerText.getText(), expTopBannerText)
-    }
-
-    async verifyCampaignText () {  
-        const expCampaignText = readJson.getJsonData('expCampaignText')
-        assert.equal(await this.campaignText.getText(), expCampaignText)    
     }
 
     async verifyburgerSign () {      
@@ -158,8 +156,6 @@ class MillionMorePage extends Page {
         assert.equal(await this.exploreOurModelHeader.isDisplayed(), true)
     }
 
-    // Purposefully failing this test case by giving incorrect test data so that I can showcase 
-    // that the report is capturing screenshots on failure
     async verifyExploreOurModelHeaderText () {   
         const cExploreOurModelHeader = readJson.getJsonData('exploreOurModelHeaderText') 
         assert.equal(await this.exploreOurModelHeader.getText(), cExploreOurModelHeader)
@@ -167,6 +163,31 @@ class MillionMorePage extends Page {
 
     async verifyExploreOurModelFirstCar () {   
         assert.equal(await this.exploreOurModelFirstCar.isDisplayed(), true)
+    }
+
+    async verifySafetyCampaignSectionIsPresent() {
+        await this.safetyCampaignSection.scrollIntoView()
+        assert.equal(await this.safetyCampaignSection.isDisplayed(), true)
+    }
+
+    async verifyCampaignText () {  
+        await this.campaignText.scrollIntoView()
+        const expCampaignText = readJson.getJsonData('expCampaignText')
+        assert.equal(await this.campaignText.getText(), expCampaignText)    
+    }
+
+    async verifySafetySpeedCapText () {   
+        const safetySpeedCapText = readJson.getJsonData('safetySpeedCapText') 
+        assert.equal(await this.safetySpeedCap.getText(), safetySpeedCapText)
+    }
+
+    async verifySafetyHighwayPilotText () {   
+        const safetyHighwayPilotText = readJson.getJsonData('safetyHighwayPilotText') 
+        assert.equal(await this.safetyHighwayPilot.getText(), safetyHighwayPilotText)
+    }
+
+    async verifyLearnMoreAboutSafety_IsClickable () {  
+        assert.equal(await this.safetyLearnMoreAbout.isClickable(), true)
     }
    
 }

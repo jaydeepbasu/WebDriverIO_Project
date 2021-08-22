@@ -31,10 +31,4 @@ const millionMorePage = require('../pageobjects/millionMore_page');
         await millionMorePage.verifyTopBannerText();
     });
 
-    it('verify Million More Page CampaignText', async () => {
-        await millionMorePage.verifyCampaignText();
-      //  await browser.pause(5000)
-    });
-
-
  });

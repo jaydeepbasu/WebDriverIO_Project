@@ -9,7 +9,6 @@ exports.config = {
 	
     specs: [
         './test/specs/**/*.js'
-        // './test/specs/verifyExploreOurModelSec.js'
     ],
 
     maxInstances: 4,
@@ -46,7 +45,7 @@ exports.config = {
     connectionRetryCount: 3,
 
     services: [
-        ['chromedriver'],
+        ['docker'],
         ['image-comparison', 
           {
             baselineFolder: join(process.cwd(), './test/image-comparison-pics/expectedPics/'),
