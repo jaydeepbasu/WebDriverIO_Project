@@ -56,7 +56,7 @@ class MillionMorePage extends Page {
 
     async acceptCookies () {
         await this.acceptCookiesButton.click()
-        await browser.pause(1000);
+        await browser.pause(2000);
     }
 
     async verifyLogo () {
