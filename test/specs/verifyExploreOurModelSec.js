@@ -11,8 +11,12 @@ describe('Verify Explore our Models section is appearing', () => {
         await millionMorePage.verifyExploreOurModelHeader();
     });
 
+    it('verify Explore our Model Section Header text is correct', async () => {
+        await millionMorePage.verifyExploreOurModelHeaderText();
+    });
+
     it('verify Explore our Model Section Cars are loading', async () => {
-        await millionMorePage.verifyExploreOurModelAllCars();
+        await millionMorePage.verifyExploreOurModelFirstCar();
     });
     
 });

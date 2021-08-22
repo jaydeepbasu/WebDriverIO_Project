@@ -8,7 +8,8 @@ exports.config = {
 	path: '/wd/hub',
 	
     specs: [
-        './test/specs/**/*.js'
+        // './test/specs/**/*.js'
+        './test/specs/verifyExploreOurModelSec.js'
     ],
 
     maxInstances: 4,
@@ -45,7 +46,7 @@ exports.config = {
     connectionRetryCount: 3,
 
     services: [
-        ['docker'],
+        ['chromedriver'],
         ['image-comparison', 
           {
             baselineFolder: join(process.cwd(), './test/image-comparison-pics/expectedPics/'),
@@ -167,7 +168,9 @@ exports.config = {
      * Function to be executed after a test (in Mocha/Jasmine).
      */
     afterTest: async function(test, context, { error, result, duration, passed, retries }) {
-        await browser.takeScreenshot();
+        if(error) {
+            await browser.takeScreenshot();
+        }
     },
 
 

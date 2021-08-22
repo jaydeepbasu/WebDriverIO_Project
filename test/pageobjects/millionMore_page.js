@@ -4,21 +4,17 @@ const fetch = require('node-fetch');
 const readJson = require('../util/readJson');
 
 
-const expProductNameList = ['XC90 Recharge','XC90 Recharge','XC60 Recharge','XC40 Recharge','XC40 Recharge','V90 Recharge','V60 Recharge','S90 Recharge','S60 Recharge']
-
-
 class MillionMorePage extends Page {
   
     get cookiesBoxLogo() { return $('[class="optanon-alert-box-logo"]')}
-    get cookiesBoxText() { return $('[class^="optanon-alert-box-title"]')}  
+    get cookiesBoxText() { return $('#alert-box-message')}  
     get acceptCookiesButton() { return  $("[title='Accept']")}
     get cookiesSettingsButton() { return  $("[title='Cookie Settings']")}
     get cookiesSettingsBox() { return  $('[id="optanon-popup-wrapper"]')}
-   // get cookiesSettingsAllowButton() { return $('[title="Allow all"]')}
     get volvoLogo () { return $("//nav[@role='navigation']//img[@alt='Volvo']") }
     get topBanner() { return $("//section[@data-autoid='ModelIntro']//h2")}
     get topBannerText() { return $("//section[@data-autoid='ModelIntro']//p")}
-    get campaignText() { return $("//section[@data-autoid='ModelIntro']//p")}
+    get campaignText() { return $("//div[@data-component='TextStatement']//p")}
     get burgerSign() { return $('[data-testid="burger"]')}
     get sideNavigationLogo() { return $('[id="nav:sideNavigation"] img[alt="Volvo"]')}
     get sideNavigationCollapse() { return $('[data-testid="close"]')}
@@ -27,11 +23,11 @@ class MillionMorePage extends Page {
     get storyWatchButton() { return $("//button[contains(text(),'watch the story')]")} 
     get productListTitle() { return $('[data-autoid="productListCarousel:title"]')}
     get productLinkList() { return $('[data-autoid="springCarouselPane:carouselItem"]>div>a')}
-  //  get productNameList() { return $('[data-autoid="productListCarouselItem:modelName"]')}
 	get decades_Inno_sec () { return $("//img[@data-autoid='imageWithText:image']/../..") }
     get ourCarsLinkTopRight() { return $('[data-testid="nav:carsLabelContainer"]')}
     get ourCars_Electric() {return $('//button//h2[text()="Electric"]')}
     get ourCarNavigationClose() {return $('[data-autoid="nav:carMenuCloseIcon"]')}
+    get videoTestiSection() {return $('[data-component="VideoTestimonials"]')}
     get oneofaMillion_videoTesti_1() {return $('[data-autoid="videoTestimonials:video-0"]')}
     get oneofaMillion_videoTesti_2() {return $('[data-autoid="videoTestimonials:video-1"]')}
     get oneofaMillion_videoTesti_3() {return $('[data-autoid="videoTestimonials:video-2"]')}
@@ -40,7 +36,7 @@ class MillionMorePage extends Page {
     get decadesInnovationSubText() {return $('[data-autoid="imageWithText:description"]')}
     get decadesInnovationLearnMore() {return $('[data-autoid="imageWithText:primaryCta"]')}
     get exploreOurModelHeader() {return $('[data-autoid="productListCarousel:title"]')}
-    get exploreOurModelAllCars() {return $('[data-autoid="springCarouselPane:carouselItem"]')}
+    get exploreOurModelFirstCar() {return $('[data-autoid="springCarouselPane:carouselItem"]')}
 
 
     async open () {
@@ -48,65 +44,53 @@ class MillionMorePage extends Page {
     }
 
     async verifyCookiesPopUp () {
-        //assert.equal(cookiesBoxLogo.getText(), expLogo);
-        const expLogo = readJson.getJsonData('expLogo')
         const cookieBoxText = readJson.getJsonData('cookieBoxText')
-
-        expect(this.cookiesBoxLogo).toHaveTextContaining(expLogo)
-        expect(this.cookiesBoxText).toHaveTextContaining(cookieBoxText)
-        expect(this.acceptCookiesButton).toBeDisplayed()
-        expect(this.cookiesSettingsButton).toBeDisplayed()
+        
+        assert.equal(await this.cookiesBoxText.getText(), cookieBoxText)
+        assert.equal(await this.acceptCookiesButton.isDisplayed(), true)
+        assert.equal(await this.cookiesSettingsButton.isDisplayed(), true)
     }
 
     async acceptCookies () {
-        await this.acceptCookiesButton.click() 
+        await this.acceptCookiesButton.click()
     }
-
-    // async verifyCookiesSettings () {
-    //     await this.cookiesSettingsButton.click();
-    //     expect(this.cookiesSettingsBox).toBeDisplayed();
-    //     var cookiesSettingsAllowButton = $('[title="Allow all"]')
-    //     await cookiesSettingsAllowButton.click();
-    // }
 
     async verifyLogo () {
-        // const isDisplayed = await this.volvoLogo.isDisplayed()
-        expect(this.volvoLogo).toBeDisplayed()
+        assert.equal(await this.volvoLogo.isDisplayed(), true)
     }
 
-    async verifyTitle () {
-        // const isDisplayed = await this.volvoLogo.isDisplayed()  
+    async verifyTitle () { 
         const expPageTitle = readJson.getJsonData('expPageTitle')
-        console.log("Jaydeep is : "+expPageTitle)
         var title =  await browser.getTitle()     
-        assert.strictEqual(title, expPageTitle)
+        assert.equal(title, expPageTitle)
     }
     async verifyTopBanner () {    
-        const expTopBanner = readJson.getJsonData('expTopBanner') 
-        expect(this.topBanner).toHaveTextContaining(expTopBanner)
+        const expTopBanner = readJson.getJsonData('expTopBanner')
+        assert.equal(await this.topBanner.getText(), expTopBanner)
     }
     async verifyTopBannerText () {    
-        const expTopBannerText = readJson.getJsonData('expTopBannerText')  
-        expect(this.topBannerText).toHaveTextContaining(expTopBannerText)
+        const expTopBannerText = readJson.getJsonData('expTopBannerText')
+        assert.equal(await this.topBannerText.getText(), expTopBannerText)
     }
 
     async verifyCampaignText () {  
-        const expCampaignText = readJson.getJsonData('expCampaignText')    
-        expect(this.campaignText).toHaveTextContaining(expCampaignText)
+        const expCampaignText = readJson.getJsonData('expCampaignText')
+        assert.equal(await this.campaignText.getText(), expCampaignText)    
     }
 
     async verifyburgerSign () {      
-        expect(this.burgerSign).toBeDisplayed()
+        assert.equal(await this.burgerSign.isDisplayed(), true)
     }
     
     async verifySideNavigationBox () {      
-        await this.burgerSign.click()  
-        expect(this.sideNavigationLogo).toBeDisplayed()
+        await this.burgerSign.click() 
+        assert.equal(await this.sideNavigationLogo.isDisplayed(), true)
         await this.sideNavigationCollapse.click()  
     }
     
-    async verifyStory () {      
-        expect(await this.story.scrollIntoView()).toBeDisplayed()        
+    async verifyStory () {  
+        await this.story.scrollIntoView()   
+        assert.equal(await this.story.isDisplayed(), true)      
     }
 
     async verifyStoryLinkNotBroken (){        
@@ -115,66 +99,70 @@ class MillionMorePage extends Page {
    }
 
     async verifyStoryWatch () {  
-        expect(this.storyWatchButton).toBeDisplayed()
+        assert.equal(await this.storyWatchButton.isDisplayed(), true)
         await this.storyWatchButton.click()  
        // this.storyWatchButton.waitForExist( 500, true )       
     }
 	
 	async decades_Inno_sec_scrollView() {
-        this.decades_Inno_sec.scrollIntoView();
+        await this.decades_Inno_sec.scrollIntoView();
     }
 	
 	async clickTopRightMenu() {
         this.burgerSign.click();
     }
 
-    async verifyOurCarsLinkTopRight () {      
-        expect(this.ourCarsLinkTopRight).toBeDisplayed()
+    async verifyOurCarsLinkTopRight () { 
+        assert.equal(await this.ourCarsLinkTopRight.isDisplayed(), true)     
     }
     
     async verifyOurCarsElectricSection () {      
         await this.ourCarsLinkTopRight.click()  
-        expect(this.ourCars_Electric).toBeDisplayed()
+        assert.equal(await this.ourCars_Electric.isDisplayed(), true)
     }
 
     async closeOurCarsSection () {      
         await this.ourCarNavigationClose.click()  
     }
 
-    async verify_VideoTesti_OneOfAMillionSection () {    
-        this.oneofaMillion_videoTesti_1.scrollIntoView(); 
-        expect(this.oneofaMillion_videoTesti_1).toBeDisplayed()
-        expect(this.oneofaMillion_videoTesti_2).toBeDisplayed()
-        expect(this.oneofaMillion_videoTesti_3).toBeDisplayed()
-        expect(this.oneofaMillion_videoTesti_4).toBeDisplayed()
+    async verify_VideoTesti_OneOfAMillionSection () {  
+        await this.videoTestiSection.scrollIntoView();
+        await this.oneofaMillion_videoTesti_1.waitForExist( 2000, true ) 
+        assert.equal(await this.oneofaMillion_videoTesti_1.isDisplayed(), true)
+        assert.equal(await this.oneofaMillion_videoTesti_2.isDisplayed(), true)
     }
 
     async verifydecadesOfInnovationHeader () {    
         const cdecadesInnovationHeader = readJson.getJsonData('decadesInnovationHeader') 
-        expect(this.decadesInnovationHeader).toHaveTextContaining(cdecadesInnovationHeader)
+        assert.equal(await this.decadesInnovationHeader.getText(), cdecadesInnovationHeader)
     }
 
     async verifydecadesOfInnovationSubText () {    
         const decadesInnovationSubText = readJson.getJsonData('decadesInnovationSubText')
-        expect(this.decadesInnovationSubText).toHaveTextContaining(decadesInnovationSubText)
+        assert.equal(await this.decadesInnovationSubText.getText(), decadesInnovationSubText)
     }
 
     async verifydecadesOfInnovationLearnMore () {   
-        expect(this.decadesInnovationLearnMore).toBeDisplayed() 
+        assert.equal(await this.decadesInnovationLearnMore.isDisplayed(), true)
         const cdecadesInnovationLearnMore = readJson.getJsonData('decadesInnovationLearnMore') 
-        expect(this.decadesInnovationLearnMore).toHaveTextContaining(cdecadesInnovationLearnMore)
+        assert.equal(await this.decadesInnovationLearnMore.getText(), cdecadesInnovationLearnMore)
     }
 
     async verifyExploreOurModelHeader () {   
-        expect(this.exploreOurModelHeader).toBeDisplayed() 
+        await this.exploreOurModelHeader.scrollIntoView()
+        assert.equal(await this.exploreOurModelHeader.isDisplayed(), true)
     }
 
-    async verifyExploreOurModelAllCars () {   
-        expect(this.exploreOurModelAllCars).toBeDisplayed() 
+    // Purposefully failing this test case by giving incorrect test data so that I can showcase 
+    // that the report is capturing screenshots on failure
+    async verifyExploreOurModelHeaderText () {   
+        const cExploreOurModelHeader = readJson.getJsonData('exploreOurModelHeaderText') 
+        assert.equal(await this.exploreOurModelHeader.getText(), cExploreOurModelHeader)
     }
 
-
-
+    async verifyExploreOurModelFirstCar () {   
+        assert.equal(await this.exploreOurModelFirstCar.isDisplayed(), true)
+    }
    
 }
 
