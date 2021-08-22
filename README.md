@@ -1,5 +1,5 @@
 # WebDriverIO_Project
-Web Automation using WebDriverIO
+Web Automation using WebDriverIO. 
 WebdriverIO is an open source e2e (End-to-End) test automation utility for nodejs. It lets you control a browser or a mobile application with just a few lines of code. 
 
 
@@ -22,12 +22,16 @@ npm run test
 ```
 
 Make sure the below configuration is present in wdio.conf.js
+```js
 services: ['chromedriver']
+```
 
 Run the solution in docker
 
 Make sure the below configuration is present in wdio.conf.js
+```js
 services: ['docker']
+```
 
 npm run test => will both run the solution and generate the allure report.
 
