@@ -34,7 +34,7 @@ class MillionMorePage extends Page {
     get oneofaMillion_videoTesti_4() {return $('[data-autoid="videoTestimonials:video-3"]')}
     get decadesInnovationHeader() {return $('[data-autoid="imageWithText:title"]')}
     get decadesInnovationSubText() {return $('[data-autoid="imageWithText:description"]')}
-    get decadesInnovationLearnMore() {return $('[data-autoid="imageWithText:primaryCta"]')}
+    get decadesInnovationLearnMore() {return $('//a[@data-autoid="imageWithText:primaryCta"]/..')}
     get exploreOurModelHeader() {return $('[data-autoid="productListCarousel:title"]')}
     get exploreOurModelFirstCar() {return $('[data-autoid="springCarouselPane:carouselItem"]')}
 
@@ -53,6 +53,7 @@ class MillionMorePage extends Page {
 
     async acceptCookies () {
         await this.acceptCookiesButton.click()
+        await browser.pause(1000);
     }
 
     async verifyLogo () {
@@ -146,6 +147,10 @@ class MillionMorePage extends Page {
         assert.equal(await this.decadesInnovationLearnMore.isDisplayed(), true)
         const cdecadesInnovationLearnMore = readJson.getJsonData('decadesInnovationLearnMore') 
         assert.equal(await this.decadesInnovationLearnMore.getText(), cdecadesInnovationLearnMore)
+    }
+
+    async verifydecadesOfInnovationLearnMore_IsClickable () {  
+        assert.equal(await this.decadesInnovationLearnMore.isClickable(), true)
     }
 
     async verifyExploreOurModelHeader () {   

@@ -11,6 +11,8 @@ describe('Verify Explore our Models section is appearing', () => {
         await millionMorePage.verifyExploreOurModelHeader();
     });
 
+    // Purposefully failing this test case by giving incorrect test data so that I can showcase 
+    // that the report is capturing screenshots on failure
     it('verify Explore our Model Section Header text is correct', async () => {
         await millionMorePage.verifyExploreOurModelHeaderText();
     });

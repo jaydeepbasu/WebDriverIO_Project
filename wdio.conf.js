@@ -8,8 +8,8 @@ exports.config = {
 	path: '/wd/hub',
 	
     specs: [
-        // './test/specs/**/*.js'
-        './test/specs/verifyExploreOurModelSec.js'
+        './test/specs/**/*.js'
+        // './test/specs/verifyExploreOurModelSec.js'
     ],
 
     maxInstances: 4,
